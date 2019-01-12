@@ -1,0 +1,110 @@
+\begin{thebibliography}{10}
+\providecommand{\url}[1]{\texttt{#1}}
+\providecommand{\urlprefix}{URL }
+
+\bibitem{calcs2018shtask}
+Aguilar, G., AlGhamdi, F., Soto, V., Diab, M., Hirschberg, J., Solorio, T.:
+  {Overview of the CALCS 2018 Shared Task: Named Entity Recognition on
+  Code-switched Data}. In: Proceedings of the Third Workshop on Computational
+  Approaches to Linguistic Code-Switching. Association for Computational
+  Linguistics, Melbourne, Australia (July 2018)
+
+\bibitem{renden2016}
+Brando, C., Frontini, F., Ganascia, J.G.: Reden: named entity linking in
+  digital literary editions using linked data sets. CSIMQ (7),  60--80 (2016)
+
+\bibitem{abstracts2016}
+Br{\"u}mmer, M., Dojchinovski, M., Hellmann, S.: Dbpedia abstracts: A
+  large-scale, open, multilingual nlp training corpus. In: LREC (2016)
+
+\bibitem{BAT2013}
+Cornolti, M., Ferragina, P., Ciaramita, M.: A framework for benchmarking
+  entity-annotation systems. In: World Wide Web Conference (2013)
+
+\bibitem{cucerzan2007large}
+Cucerzan, S.: Large-scale named entity disambiguation based on {W}ikipedia
+  data. EMNLP-CoNLL p. 708 (2007)
+
+\bibitem{Marieke2016}
+van Erp, M., Mendes, P., Paulheim, H., Ilievski, F., Plu, J., Rizzo, G.,
+  Waitelonis, J.: Evaluating entity linking: {A}n analysis of current benchmark
+  datasets and a roadmap for doing a better job. In: {LREC} (2016)
+
+\bibitem{NIFpaper}
+Hellmann, S., Lehmann, J., Auer, S., Br{\"{u}}mmer, M.: Integrating {NLP} using
+  linked data. In: {ISWC}. pp. 98--113 (2013)
+
+\bibitem{aida2011}
+Hoffart, J., et~al.: Robust disambiguation of named entities in text. In:
+  EMNLP. pp. 782--792. ACL (2011)
+
+\bibitem{kore50}
+Hoffart, J., Seufert, S., Nguyen, D.B., Theobald, M., Weikum, G.: Kore:
+  keyphrase overlap relatedness for entity disambiguation. In: CIKM. pp.
+  545--554 (2012)
+
+\bibitem{Kunal2017}
+Jha, K., R{\"{o}}der, M., Ngomo, A.N.: All that glitters is not gold -
+  rule-based curation of reference datasets for named entity recognition and
+  entity linking. In: {ESWC}. pp. 305--320 (2017)
+
+\bibitem{IITB2009}
+Kulkarni, S., Singh, A., Ramakrishnan, G., Chakrabarti, S.: Collective
+  annotation of wikipedia entities in web text. In: SIGKDD. pp. 457--466 (2009)
+
+\bibitem{Lexvo2008}
+de~Melo, G., Weikum, G.: Language as a foundation of the semantic web. In:
+  Proceedings of the Poster and Demonstration Session at the 7th International
+  Semantic Web Conference (2008)
+
+\bibitem{mendes2011dbpedia}
+Mendes, P.N., Jakob, M., Garc{\'\i}a-Silva, A., Bizer, C.: {DB}pedia spotlight:
+  shedding light on the web of documents. In: I-SEMANTICS. pp. 1--8. ACM (2011)
+
+\bibitem{meantime2016}
+Minard, A., et~al.: Meantime, the newsreader multilingual event and time corpus
+   (2016)
+
+\bibitem{moro2015semeval}
+Moro, A., Navigli, R.: {SemEval}-2015 {Task} 13: Multilingual all-words sense
+  disambiguation and entity linking. In: SemEval@ NAACL-HLT. pp. 288--297
+  (2015)
+
+\bibitem{Bengal2018}
+Ngomo, A.N., R{\"{o}}der, M., Moussallem, D., Usbeck, R., Speck, R.: {BENGAL:}
+  an automatic benchmark generator for entity recognition and linking. In:
+  Proceedings of the 11th International Conference on Natural Language
+  Generation. pp. 339--349 (2018)
+
+\bibitem{Orbis2018}
+Odoni, F., Kuntschik, P., Brasoveanu, A.M.P., Weichselbraun, A.: On the
+  importance of drill-down analysis for assessing gold standards and named
+  entity linking performance. In: {SEMANTICS}. pp. 33--42 (2018)
+
+\bibitem{aquaint}
+Ratinov, L., Roth, D., Downey, D., Anderson, M.: Local and global algorithms
+  for disambiguation to {W}ikipedia. In: NAACL-HLT. pp. 1375--1384 (2011)
+
+\bibitem{N3}
+R{\"{o}}der, M., Usbeck, R., Hellmann, S., Gerber, D., Both, A.: N{\({^3}\)} -
+  {A} collection of datasets for named entity recognition and disambiguation in
+  the {NLP} interchange format. In: {LREC}. pp. 3529--3533 (2014)
+
+\bibitem{VoxEL2018}
+Rosales{-}M{\'{e}}ndez, H., Hogan, A., Poblete, B.: Voxel: {A} benchmark
+  dataset for multilingual entity linking. In: {ISWC}. pp. 170--186 (2018)
+
+\bibitem{gerbil-2015}
+Usbeck, R., et~al.: {GERBIL:} general entity annotator benchmarking framework.
+  In: WWW. pp. 1133--1143 (2015)
+
+\bibitem{wes2015}
+Waitelonis, J., Exeler, C., Sack, H.: Linked data enabled generalized vector
+  space model to improve document retrieval. In: NLP \& DBpedia @ ISWC (2015)
+
+\bibitem{KEA2016}
+Waitelonis, J., Sack, H.: Named entity linking in {\#}tweets with {KEA}. In:
+  Proceedings of the 6th Workshop on `Making Sense of Microposts' 2016. pp.
+  61--63 (2016)
+
+\end{thebibliography}
