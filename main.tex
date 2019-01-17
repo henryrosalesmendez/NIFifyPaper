@@ -1,17 +1,8 @@
 %
-% This is based on the LLNCS.DEM the demonstration file of
-% the LaTeX macro package from Springer-Verlag
-% for Lecture Notes in Computer Science,
-% version 2.4 for LaTeX2e as of 16. April 2010
-%
-% See http://www.springer.com/computer/lncs/lncs+authors?SGWID=0-40209-0-0-0
-% for the full guidelines.
-%
-%
+% The first command in your LaTeX source must be the \documentclass command.
+\documentclass[sigconf]{acmart}
 
-\documentclass{llncs}
 
-\hyphenation{do-cu-ment}
 
 \usepackage[utf8]{inputenc}
 \usepackage{fancyvrb}
@@ -19,20 +10,8 @@
 \usepackage{graphicx}
 \usepackage{comment}
 \usepackage{xspace}
-\usepackage[usenames, dvipsnames]{xcolor}
-\definecolor{igual}{rgb}{0.21, 0.11, 0} 
-\usepackage{hyperref}
-\definecolor{dark-blue}{rgb}{0.0,0.0,0.1}
-\definecolor{dark-green}{rgb}{0.0,0.1,0.0}
-\definecolor{dark-red}{rgb}{0.1,0.0,0.0}
-\hypersetup{
-    colorlinks, linkcolor={dark-red},
-    citecolor={dark-green}, urlcolor={dark-blue},
-    pdftitle={NIFify: supportig NIF for EL},    % title
-    pdfauthor={Henry Rosales-Méndez, Aidan Hogan, Barbara Poblete},     % author
-    pdfsubject={ISWC 2018},   % subject of the document
-    pdfkeywords={multilingual;} {entity linking;} {information extraction;} {benchmark;}, % list of keywords
-}
+%\usepackage[usenames, dvipsnames]{xcolor}
+%\usepackage{hyperref}
 \usepackage{amsmath}
 \newcommand{\argmin}{\arg\!\min}
 \newcommand{\argmax}{\arg\!\max}
@@ -51,30 +30,150 @@
 \usepackage{soul} %middleline
 \usepackage{pgfplots}
 
+
+
+
+%
+% defining the \BibTeX command - from Oren Patashnik's original BibTeX documentation.
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08emT\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+    
+% Rights management information. 
+% This information is sent to you when you complete the rights form.
+% These commands have SAMPLE values in them; it is your responsibility as an author to replace
+% the commands and values with those provided to you when you complete the rights form.
+%
+% These commands are for a PROCEEDINGS abstract or paper.
+\copyrightyear{2018}
+\acmYear{2018}
+\setcopyright{acmlicensed}
+\acmConference[LA-WEB 2019]{10th Latin American Web Congress LA-WEB 2019}{May 13--14, 2019}{San Francisco, USA}
+\acmBooktitle{10th Latin American Web Congress LA-WEB 2019, May 13--14, San Francisco, USA}
+\acmPrice{15.00}
+\acmDOI{10.1145/1122445.1122456}
+\acmISBN{978-1-4503-9999-9/18/06}
+
+%
+% These commands are for a JOURNAL article.
+%\setcopyright{acmcopyright}
+%\acmJournal{TOG}
+%\acmYear{2018}\acmVolume{37}\acmNumber{4}\acmArticle{111}\acmMonth{8}
+%\acmDOI{10.1145/1122445.1122456}
+
+%
+% Submission ID. 
+% Use this when submitting an article to a sponsored event. You'll receive a unique submission ID from the organizers
+% of the event, and this ID should be used as the parameter to this command.
+%\acmSubmissionID{123-A56-BU3}
+
+%
+% The majority of ACM publications use numbered citations and references. If you are preparing content for an event
+% sponsored by ACM SIGGRAPH, you must use the "author year" style of citations and references. Uncommenting
+% the next command will enable that style.
+%\citestyle{acmauthoryear}
+
+%
+% end of the preamble, start of the body of the document source.
 \begin{document}
 
+%
+% The "title" command has an optional parameter, allowing the author to define a "short title" to be used in page headers.
 \title{NIFify: supporting NIF for Entity Linking}
-\titlerunning{NIFify: supporting NIF for EL}
-\author{Henry Rosales-M\'endez, Aidan Hogan and Barbara Poblete}
-\authorrunning{Rosales-Méndez et al.}
-\institute{IMFD Chile \& Department of Computer Science, University of Chile \\
-\texttt{\{hrosales,ahogan,bpoblete\}@dcc.uchile.cl}}
 
-\newcommand{\ds}{\textsc{VoxEL}\xspace}
+%
+% The "author" command and its associated commands are used to define the authors and their affiliations.
+% Of note is the shared affiliation of the first two authors, and the "authornote" and "authornotemark" commands
+% used to denote shared contribution to the research.
+\author{Henry Rosales M\'endez}
+\affiliation{%
+  \institution{University of Chile}
+}
+\email{hrosales@dcc.uchile.cl}
 
-\maketitle  % typeset the title of the contribution
+\author{Aidan Hogan}
+\affiliation{%
+  \institution{University of Chile}
+}
+\email{ahogan@dcc.uchile.cl}
+
+
+\author{Barbara Poblete}
+\affiliation{%
+  \institution{University of Chile}
+}
+\email{bpoblete@dcc.uchile.cl}
+
+
+%
+% By default, the full list of authors will be used in the page headers. Often, this list is too long, and will overlap
+% other information printed in the page headers. This command allows the author to define a more concise list
+% of authors' names for this purpose.
+\renewcommand{\shortauthors}{Rosales et al.}
+
+%
+% The abstract is a short summary of the work to be presented in the article.
 \begin{abstract}
 The Entity Linking (EL) task identifies entity mentions in a text corpus and associates them with a corresponding unambiguous entry in a Knowledge Base. So far, the evaluation process of EL systems relies on the comparison of their results against gold standards. Despite that some gold standard has been proposed, they are still insufficient in some specific domains or situations that are commonly presented in real environments. 
 The most recent of them commonly have been created using the NIF format, which is focused on spotting the mentions in a text corpus and annotate them with URIs using RDF triples. In this paper we first propose a minor extension of NIF format in order to cover the entity type, and also we propose the tool NIFify for the creation, visualization and validation of NIF datasets, as well as for our proposed extension of NIF. NIFify also serves as a benchmark tool that allows the assessment of EL systems. Additionally, we explore the quality of some popular NIF gold standards trough NIFify. 
-\keywords{Entity Linking, Validation, NIF, Benchmark dataset}\\
 \end{abstract}
 
+%
+% The code below is generated by the tool at http://dl.acm.org/ccs.cfm.
+% Please copy and paste the code instead of the example below.
+%
+\begin{comment}
+\begin{CCSXML}
+<ccs2012>
+ <concept>
+  <concept_id>10010520.10010553.10010562</concept_id>
+  <concept_desc>Computer systems organization~Embedded systems</concept_desc>
+  <concept_significance>500</concept_significance>
+ </concept>
+ <concept>
+  <concept_id>10010520.10010575.10010755</concept_id>
+  <concept_desc>Computer systems organization~Redundancy</concept_desc>
+  <concept_significance>300</concept_significance>
+ </concept>
+ <concept>
+  <concept_id>10010520.10010553.10010554</concept_id>
+  <concept_desc>Computer systems organization~Robotics</concept_desc>
+  <concept_significance>100</concept_significance>
+ </concept>
+ <concept>
+  <concept_id>10003033.10003083.10003095</concept_id>
+  <concept_desc>Networks~Network reliability</concept_desc>
+  <concept_significance>100</concept_significance>
+ </concept>
+</ccs2012>
+\end{CCSXML}
 
+\ccsdesc[500]{Computer systems organization~Embedded systems}
+\ccsdesc[300]{Computer systems organization~Redundancy}
+\ccsdesc{Computer systems organization~Robotics}
+\ccsdesc[100]{Networks~Network reliability}
 
-%---------------------------------------------
-\section{Introduction} 
-\label{sec:intro}
+%
+% Keywords. The author(s) should pick words that accurately describe the work being
+% presented. Separate the keywords with commas.
+\keywords{datasets, neural networks, gaze detection, text tagging}
 
+%
+% A "teaser" image appears between the author and affiliation information and the body 
+% of the document, and typically spans the page. 
+
+\begin{teaserfigure}
+  \includegraphics[width=\textwidth]{sampleteaser}
+  \caption{Seattle Mariners at Spring Training, 2010.}
+  \Description{Enjoying the baseball game from the third-base seats. Ichiro Suzuki preparing to bat.}
+  \label{fig:teaser}
+\end{teaserfigure}
+\end{comment}
+%
+% This command processes the author and affiliation and title information and builds
+% the first part of the formatted document.
+\maketitle
+
+%------------------------------------------------------------
+\section{Introduction}
 The Entity Linking (EL) task identifies entity mentions in a text corpus and associates them with a corresponding unambiguous entry in a Knowledge Base (KB). EL task belongs to the Information Extraction (IE) area, and it has gained the attention of the scientific community in the recent years, mainly because the increasing availability of huge KBs that cover a long portion of the whole knowledge (e.g., Wikipedia, DBpedia, Wikidata, BabelNet).
 
 EL is directly applicable in Natural Language Processing (NLP), since associating entities with KB build a bridge from unstructured information to structured data, which provide relevant information and relationships about them. For instance, in the sentence \textit{``Jackson won an award as best-selling artist of the 1980s"} an EL systems should identify \textit{Jackson} as \texttt{dbr:Michael\_Jackson}\footnote{Throughout, we use prefixes according to http://prefix.cc}, and in this way, we know that he was the famous musician knows as The King of the Pop. Many related fields can leverage EL benefits such as Semantic search, Semantic annotation, Text enrichment, Entity summarization, and Relation Extraction. 
@@ -106,6 +205,7 @@ The usual way to evaluate EL systems is performed through benchmark datasets, wh
 Some formats employed to write EL datasets are based on XML (e.g., MSNBC, IITB~\cite{IITB2009}, RENDEN~\cite{renden2016}, CAT~\cite{meantime2016}) or CSV (e.g., AIDA~\cite{aida2011}, SemEval~\cite{moro2015semeval}). For a general goal, Melo et al.~\cite{Lexvo2008} propose Lexvo\footnote{\url{http://lexvo.org/ontology}; January 1st, 2019.}, a RDF-based format and service that defines a unique URI for terms, languages, scripts, and characters from a text corpus, allowing their use in Semantic Web. %In this context, Melo et al.~\cite{Lexvo2008} propose the Lexvo.org service and Lexvo Ontology\footnote{\url{http://lexvo.org/ontology}; January 1st, 2019.}, that allow the constructions of human-readable and machine-readable data based on RDF triples. Lexvo defines a unique URI for terms, languages, scripts, and characters for use in Semantic Web; and provide links to several thesauri and KBs such as Wiktionary and Wikipedia. 
 On the other hand, Hellmann et al., proposed in \cite{NIFpaper} the NLP Interchange Format (NIF) which supports the interoperability of a variety of NLP tools, used by several of the last EL datasets (e.g., N3-RSS 500~\cite{N3}, Reuters 128~\cite{N3}, Wes2015~\cite{wes2015}, News-100~\cite{N3}, DBpedia Abstracts~\cite{abstracts2016}, VoxEL~\cite{VoxEL2018}). With the idea of homogenizing the use of NIF datasets, some authors have been transformed popular non-NIF datasets to this format, this is the case of  KORE50 and DBpedia Spotlight\footnote{\url{http://apps.yovisto.com/labs/ner-benchmarks}; January 1st, 2019.}. In Table~\ref{tab:datasets} we list the most popular EL datasets in the literature and some details of their constructions.
 
+\begin{comment}
 \newcommand{\ccell}[1]{\multicolumn{1}{c}{#1}}
 \newcommand{\rcell}[1]{\multicolumn{1}{r}{#1}}
 \setlength{\tabcolsep}{1.2ex}
@@ -114,7 +214,7 @@ On the other hand, Hellmann et al., proposed in \cite{NIFpaper} the NLP Intercha
 \centering
 \caption{Survey of dataset for EL task. We highlighted in bold those datasets that have been re-writing to NIF format.}
 \label{tab:datasets} 
-\resizebox{\textwidth}{!}{
+%\resizebox{\textwidth}{!}{
 \begin{tabular}{lrrrrccc}
 \toprule
 \textbf{Dataset}~~~~~~~~~~~~~~~~~~ & \ccell{Year}&\rcell{$|D|$} & \rcell{$|S|$} & \rcell{$|E|$} & \ccell{\textbf{Mn}} & \ccell{\textbf{Typ}}&\ccell{\textbf{Format}}\\\midrule
@@ -141,7 +241,47 @@ VoxEL$_R$~\cite{VoxEL2018}          &2018&15      &94     &674     &\cmark &\xma
 VoxEL$_S$~\cite{VoxEL2018}          &2018&15      &94     &204     &\cmark &\xmark & NIF\\   
 \bottomrule
 \end{tabular}
-}
+%}
+\end{table}
+\end{comment}
+
+
+
+\newcommand{\ccell}[1]{\multicolumn{1}{c}{#1}}
+\newcommand{\rcell}[1]{\multicolumn{1}{r}{#1}}
+\setlength{\tabcolsep}{1.2ex}
+\begin{table}[tb!]
+%\begin{table}[!]
+\centering
+\caption{Survey of dataset for EL task. We highlighted in bold those datasets that have been re-writing to NIF.}
+\label{tab:datasets} 
+%\resizebox{\textwidth}{!}{
+\begin{tabular}{lccc}
+\toprule
+\textbf{Dataset}~~~~~~~~~~~~~~~~~~ & \ccell{\textbf{Mn}} & \ccell{\textbf{Typ}}&\ccell{\textbf{Format}}\\\midrule
+MSNBC~\cite{cucerzan2007large}      &\xmark &\xmark & MSNBC \\\midrule%& XML \\\midrule
+IITB~\cite{IITB2009}                &\cmark &\xmark & IITB  \\\midrule%& XML \\\midrule
+AIDA/CoNLL~\cite{aida2011}          &\cmark &\xmark & AIDA  \\\midrule%& CSV \\\midrule
+ACE2004~\cite{aquaint}              &\xmark &\xmark & MSNBC \\\midrule%& XML \\\midrule
+AQUAINT~\cite{aquaint}              &\xmark &\xmark & MSNBC \\\midrule%& XML\\\midrule
+\textbf{DBpedia Spotlight}
+\cite{mendes2011dbpedia}            &\cmark &\xmark & Lexvo \\\midrule%& RDF \\\midrule
+\textbf{KORE50}~\cite{kore50}       &\cmark &\xmark & AIDA  \\\midrule%& CSV\\\midrule
+N3-RSS 500~\cite{N3}                &\cmark &\xmark & NIF   \\\midrule%& RDF/OWL \\\midrule
+Reuters 128~\cite{N3}               &\cmark &\xmark & NIF   \\\midrule%& RDF/OWL\\\midrule
+News-100~\cite{N3}                  &\cmark &\xmark & NIF   \\\midrule%& RDF/OWL\\\midrule
+Wes2015~\cite{wes2015}              &\cmark &\xmark & NIF   \\\midrule%& RDF/OWL\\\midrule
+SemEval 2015 
+Task 13~\cite{moro2015semeval}      &\cmark &\xmark & SemEval \\\midrule%& CSV\\ \midrule
+Thibaudet~\cite{renden2016}         &\xmark &\cmark & RENDEN  \\\midrule%& XML\\\midrule
+Bergson~\cite{renden2016}           &\xmark &\cmark & RENDEN  \\\midrule%& XML\\\midrule
+DBpedia Abstracts
+~\cite{abstracts2016}               &\xmark &\xmark & NIF \\\midrule%& RDF/OWL\\\midrule
+MEANTIME~\cite{meantime2016}        &\cmark &\cmark & CAT \\\midrule%& XML \\\midrule 
+VoxEL~\cite{VoxEL2018}              &\cmark &\xmark & NIF \\%& RDF/OWL\\
+\bottomrule
+\end{tabular}
+%}
 \end{table}
 
 The NIF format is based on RDF/OWL triples $<$\textit{subject}, \textit{predicate}, \textit{object}$>$ where the \textit{subjects} constitute units of information such as document, setences, and annotations; and the pair \textit{predicates-objects} define their properties. Predicates as \texttt{nif:beginIndex} and \texttt{nif:endIndex} indicate the start and end position of the entity mention in the sentence. The targetted KB resources is specified by NIF using the predicate \texttt{itsrdf:taIdentRef}, and the most specific class references can be defined by \texttt{itsrdf:taClassRef}. This group of predicates allows the entity mention and type specifications, while other predicates capture metadata related to other close tasks, such as Stemming (\texttt{nif:stem}) and Part-Of-Speech (\texttt{nif:oliaCategory}, \texttt{nif:lemma}).  
@@ -188,22 +328,23 @@ The first example is based on the sentence S1, where there is not enough informa
 %Esta annotacipon multiple trae consigo un conflicto en los tipos de entidad, ya que cada
 We expect that each link of the same annotation refers to the same entity type or in general to the same set of classes so that we can specify this property through the predicate \texttt{itsrdf:taClassRef}. This is the case of the annotation of \textit{Bush} in sentence S1 because the resources associated with both presidents describe persons. However, it is not what always happens in real environments. For example, in sentence S2 the mention \textit{Moscow} is targetting two URIs which different entity type, one is a place and the other an organization.
 
-Multiple links in the same annotation are already supported by NIF, but there is no distinction about the entity type of each link. Therefore, we propose to separate the entity type specification from the annotation scope defining a new triple $<s_i$, \texttt{\textcolor{red}{enif}:entityType} , $o_i>$ for each link in the annotation, whereas $s_n$ corresponds to the URI and $o_i$ the type of the entity. In Figure~\ref{fig:nif} we show the annotation of Moscow from sentence S2, followed by two triples that represent our extension. 
+Multiple links in the same annotation are already supported by NIF, but there is no distinction about the entity type of each link. Therefore, we propose to separate the entity type specification from the annotation scope defining a new triple \textit{<$s_i$, enif:entityType, $o_i$>} for each link in the annotation, whereas $s_n$ corresponds to the URI and $o_i$ the type of the entity. In Figure~\ref{fig:nif} we show the annotation of Moscow from sentence S2, followed by two triples that represent our extension. 
 
 \begin{figure}
 \caption{NIF triples to specify the annotation of Moscow from sentence S2. The last two triples follow our extension of NIF to specify entity types.}
 \label{fig:nif}
 \begin{Verbatim}[frame=single]
-<http://example.org#char=88,94>
-    a nif:String, nif:Context, nif:Phrase, nif:RFC5147String;
+<http://example.org#char=88,94> a nif:String, 
+    nif:Context, nif:Phrase, nif:RFC5147String;
     nif:anchorOf """Moscow"""^^xsd:string;
     nif:beginIndex "88"^^xsd:nonNegativeInteger;
     nif:endIndex "94"^^xsd:nonNegativeInteger;
-    itsrdf:taIdentRef <.../wiki/Moscow>;
-    itsrdf:taIdentRef <.../wiki/Government_of_Russia>.  
+    itsrdf:taIdentRef </wiki/Moscow>;
+    itsrdf:taIdentRef </wiki/Government_of_Russia>.  
     
-<.../wiki/Moscow> enif:entityType dbo:Place.
-<.../wiki/Government_of_Russia> enif:entityType dbo:Organization.
+</wiki/Moscow> enif:entityType dbo:Place.
+</wiki/Government_of_Russia> enif:entityType 
+    dbo:Organization.
 \end{Verbatim}
 \end{figure}
 
@@ -212,28 +353,28 @@ Multiple links in the same annotation are already supported by NIF, but there is
 \section{NIF Construction}
 A plethora of systems have been proposed to operate with NIF, from the basic process of annotation to other more complex operation such as the validations and quality assessment of EL systems. The benchmark dataset creation is commonly performed manually, as you can see in Table \ref{tab:datasets}, and choosing the automatic annotation commonly for those scenarios where it is hard to perform a human intervention. This is the case of DBpedia Abstracts, a benchmark datasets based on the abstracts of Wikipedia which represents a too large source of information for human processing. However, not always the authors describe the details about how they perform the annotations. In the case of the N$^3$ datasets~\cite{N3} (i.e., N3-RSS 500, Reuters 128, News-100), the authors developed an annotation tool to create them, but there is no information in the literature about where found it. 
 
-One step to avoid the manual annotation process behind the dataset creation is provided by Ngoma et al.~\cite{Bengal2018}, who propose BENGAL, an automatic benchmark generator for \textcolor{red}{ER}/EL. BENGAL goes for the facts of current RDF information to text, keeping the subjects and objects in the triples as links in the annotations. This automatic procedure guarantee that the quality of the dataset does not contains additional errors than those already contained in the source. Despite the growing availability of RDF data, some contexts are poorly covered in RDF format; in particular, those that aim to capture specific situations (e.g., noisy text). %For instance, VoxEL could be difficult to obtain with an automatic process due to the source text from the different languages were written by journalists, who changes/delete/extends the original news in the translation from the original one. So, aligning the entity mentions of VoxEL without human intervention could be a \textcolor{blue}{complex problem.}
-In this paper, we propose NIFify, a tool that allows the annotation, visualization, and validation of NIF datasets in the same environment, as well as the comparison of EL systems. We design NIFify to capture specifications from different perspectives of annotations, allowing partial o total overlapping among them, as well as the cross-links specification. As a consequence of the annotation process, this tool is a suit to visualize and modify already proposed NIF datasets. Additionally, we include in NIFify functionalities to transform MSNBC$_{xml}$ documents to NIF, used to transform the datasets MSNBC and ACE2004\footnote{\url{https://users.dcc.uchile.cl/~hrosales/MSNBC_ACE2004_nif}}. 
+One step to avoid the manual annotation process behind the dataset creation is provided by Ngoma et al.~\cite{Bengal2018}, who propose BENGAL, an automatic benchmark generator for ER/EL. BENGAL goes for the facts of current RDF information to text, keeping the subjects and objects in the triples as links in the annotations. This automatic procedure guarantee that the quality of the dataset does not contains additional errors than those already contained in the source. Despite the growing availability of RDF data, some contexts are poorly covered in RDF format difficulting the automatic construction of datasets with BENGAL; in particular, those that aim to capture specific situations (e.g., noisy text).
+In this paper, we propose NIFify, a tool that allows the annotation, visualization, and validation of NIF datasets in the same environment, as well as the comparison of EL systems. We design NIFify to capture specifications from different perspectives of annotations, allowing partial o total overlapping among them, as well as the cross-links specification. As a consequence of the annotation process, this tool is a suit to visualize and modify already proposed NIF datasets. Additionally, we include in NIFify functionalities to transform MSNBC-based datasets to NIF, used to transform the datasets MSNBC and ACE2004\footnote{\url{https://users.dcc.uchile.cl/~hrosales/MSNBC_ACE2004_to_NIF.html}}. 
 
 In our previous work~\cite{VoxEL2018}, we use NIFify to build VoxEL -- a multilingual dataset with the sentences/mentions manually annotated -- that manually aligned cross-language over 15 news from VoxEurop. Although this is a source of curated text, there were differences in the translations of the news, for example, in many cases, some proper names of entity mentions were translated by journalists as pronouns to other languages. Another common problem was the inclusion or deletion of sentences in the translations. For these reasons, we include in NIFify functionalities to deal with these situations, allowing the replacement, modification, and deletion of part of the text in order to align the mentions, as well as the elimination of whole sentences. 
 
 %---------------------------------------------------------------------------------------
 \section{NIF Validation}
 
-Validation is a crucial step in science, and so it is in Entity Linking. EL datasets are proposed as a ground truth, so we expect does not found any errors in there, but it is not what exactly happens in reality. Some researches stress the strengths and weaknesses of current datasets, that provide valuable criteria to choose which dataset they should include in evaluations. Erp et al~\cite{Marieke2016}, analyze some characteristics of seven datasets their shared annotations and found some biases that could be introduced by the decisions taken in the annotation process. Erp et al., also highlight the need for the creation of datasets that follows standards indicators, such as the standardization of the format file and the inclusion of heterogeneous domains. The problem of writing high-quality datasets was tackled by Jha et al~\cite{Kunal2017}, who propose a set of rules to constrains the dataset construction. In addition, Jha et al., propose the system EAGLE to identify the fulfillment or not of these rules. With NIFify we allow also the validation of NIF datasets, incorporating only their general rules. For example, we consider that mention overlapping is suitable in some scenario of applications, but, this fact is constrained by them with their rule \textit{Overlapping Error}.
+Validation is a crucial step in science, and so it is in Entity Linking. EL datasets are proposed as a ground truth, so we expect does not found any errors in there, but it is not what exactly happens in reality. Some researches stress the strengths and weaknesses of current datasets, that provide valuable criteria to choose which dataset they should include in evaluations. Erp et al~\cite{Marieke2016}, analyze some characteristics of seven datasets their shared annotations and found some biases that could be introduced by the decisions taken in the annotation process. Erp et al., also highlight the need for the creation of datasets that follows standards indicators, such as the standardization of the format file and the inclusion of heterogeneous domains. The problem of writing high-quality datasets was tackled by Jha et al~\cite{Kunal2017}, who propose a set of rules to constrains the dataset construction. In addition, Jha et al., propose the system EAGLE to identify the fulfillment or not of these rules. However, more than one definition of entity have been used in the community~\cite{ourAMW2018}, with NIFify we allow also the validation of NIF datasets, incorporating only their general rules. For example, we consider that mention overlapping is suitable in some scenario of applications, but, this fact is constrained by them with their rule \textit{Overlapping Error}.
 
 Some validators are completely dedicated to checking the consistency of the NIF format, but it is not took into account in EL validations. Mistakes in the structure of NIF datasets are commonly handled by the parsing script of benchmarks tools, validating in this way the syntax but not the content. This fact directly affects the evaluation process, taking the results corresponding to these erroneous annotations as \textit{false positives} rather than \textit{true positives}. For example, the position information in the URI of the subject of each annotation triple should match with the predicates \texttt{nif:beginIndex} and \texttt{nif:endIndex} (\textit{Format Error Type 1}). The string defined by these both predicates also should match with the string specified through the predicate \texttt{nif:anchorOf} (\textit{Format Error Type 2}). 
 
 %Contrary to the previous validation proposal, 
-In this scenario, NIFify allows the cheking of these two errors that are presented in popular datasets as DBpedia Spotlight. We fix the Format Errors of DBpedia Spotlight and release the corrected version\footnote{\url{https://users.dcc.uchile.cl/~hrosales/fixedDBpediaSpotlight}}. We check the following rules:
+In this scenario, NIFify allows the cheking of these two errors that are presented in popular datasets as DBpedia Spotlight. We fix the Format Errors of DBpedia Spotlight and release the corrected version\footnote{\url{https://users.dcc.uchile.cl/~hrosales/fixedDBpediaSpotlight.html}}. We check the following rules:
 
 \begin{itemize} 
 \item Spelling Rule (SR): Mentions should be completed worlds, none letter should not be after or before of it.
 %We highlight those annotation where the mentions are substring of other word that share characteres in same position. 
-\item Link Rule (LR): The links of the annotations should be valid URIs corresponding to the unambiguous and non-redirect page.
+\item Link Rule (LR): Annotation Links should be valid URIs corresponding to the unambiguous and non-redirect page.
 %We identified as error those annotation that link invalid URIs, or URIs that correspond to redirct or disambiguation page. 
-\item Format Rule (FR): The \textit{Format Error Type} 1 and 2 are not allowed.
-\item Category Error (CR): For those datasets with classes specified by the predicate \texttt{itsrdf:taClassRef}, NIFify allows the specification of dynamic rules in order to detect inconsistencies on the annotation classes. For example, the classes \texttt{dbo:Person} and \texttt{dbo:Event} in some context should not define the same annotation, because usually, a person is not an event at the same time and viceversa; but a mention of \texttt{dbo:Person} could be the \texttt{ex:Subject} in a sentence. 
+\item Format Rule (FR): Here we constraint that \textit{Format Error Type} 1 and 2 should not be present in datasets.
+\item Category Error (CR): For those datasets with classes specified by the predicate \texttt{itsrdf:taClassRef}, NIFify allows the specification of dynamic rules in order to detect inconsistencies on the annotation classes. For example, the classes \texttt{dbo:Person} and \texttt{dbo:Event} in some context should not define the same annotation, because usually, a person is not an event at the same time and viceversa; but a mention of \texttt{dbo:Person} could be the \texttt{ex:Subject} of sentence. 
 \end{itemize}
 
 %\textcolor{red}{Implementar las validaciones que comento aqui abajo en el latex.}
@@ -258,25 +399,23 @@ Link Rule is suitable only to asses datasets that target Wikipedia and DBpedia. 
 \begin{tabular}{lcccc}
 \toprule
 \textbf{Dataset}~~~~~~~~~~~~~~~~~~~~~~~~~ & \ccell{SE}  &\ccell{LE}& \ccell{FE}& \ccell{CE}\\\midrule
-MSNBC$_t$                 &- &-     &- &-\\\midrule
-ACE2004$_t$               &- &-     &- &-\\\midrule
-DBpedia Spotlight         &- &26    &4 &-\\\midrule
-N3-RSS 500                &1 &52    &- &-\\\midrule
-Reuters 128               &8 &-     &2 &-\\\midrule
-News-100                  &9 &1515  &- &-\\\midrule
-Wes2015                   &- &1004  &- &-\\\midrule
-\textcolor{red}{DBpedia Abstracts}         &  &  &  &-\\\midrule
-VoxEL                     &8 &11  &- &-\\
-%BENGAL outputs                      &&&&\\
+MSNBC$_t$                &- &-     &- &-\\\midrule
+ACE2004$_t$              &- &-     &- &-\\\midrule
+DBpedia Spotlight        &8 &23    &4 &-\\\midrule
+N3-RSS 500               &1 &35    &- &-\\\midrule
+Reuters 128              &4 &71    &- &-\\\midrule
+News-100                 &9 &1515  &- &-\\\midrule
+Wes2015                  &- &644   &- &-\\\midrule
+VoxEL                    &- &8  &- &-\\
 \bottomrule
 \end{tabular}
 %}
 \end{table}
 
 
-In the majority of the cases, SE errors are associated to mistakes made in the construction process with the addition of characters that do not belong to the mention, or on the contrary, leaving out of the complete mention part of it; for example, in the \textcolor{red}{MSNBC} dataset the URI \texttt{wiki:Japan} is associated with the first five characters of \textit{Japanese}. Other SE errors contained in the datasets are the missing spaces between one mention and another word. The SE errors of datasets MSNBC$_t$ and ACE2004$_t$ were fixed in the transformation process to NIF. 
+In the majority of the cases, SE errors are associated to mistakes made in the construction process with the addition of characters that do not belong to the mention, or on the contrary, leaving out of the complete mention part of it; for example, in the DBpedia Spotlight dataset the URI \texttt{wiki:Man} is associated with the last three characters of the world \textit{performan}. Other SE errors contained in the datasets are the missing spaces between one mention and another word. The SE errors of datasets MSNBC$_t$ and ACE2004$_t$ were fixed in the transformation process to NIF. 
 
-The most frequent error in current NIF dataset was LE, what it is mainly due to the fact that KBs are constantly changing with the incorporation and updating of new knowledge. With these changes, some Wikipedia pages that describe general concept are hierarchized, and thus, these general pages are maintained as disambiguation pages. Likewise, other pages are converted to redirect pages, replacing their original title with new ones that fit better with the updating. \textcolor{red}{For instance, the URI \texttt{wiki:EU\_Navfor\_Med} from the version xxx of Wikipedia was maintained as redirect in the version yyyy, replaced by \texttt{wiki:Operation\_Sophia}.} In the case of the Wes2015 dataset, 870 from its LE errors correspond to redirect pages, 89 to ambiguous pages an the rest are not valid URIs. 
+The most frequent error in current NIF dataset was LE, what it is mainly due to the fact that KBs are constantly changing with the incorporation and updating of new knowledge. With these changes, some Wikipedia pages that describe general concept are hierarchized, and thus, these general pages are maintained as disambiguation pages. Likewise, other pages are converted to redirect pages, replacing their original title with new ones that fit better with the updating. For instance, the URI \texttt{wiki:EU\_Navfor\_Med} was maintained as redirect in the last updated and replaced by \texttt{wiki:Operation\_Sophia}. In the case of the Wes2015 dataset, 520 from its LE errors correspond to redirect pages, 48 to ambiguous pages an the rest are not valid URIs. All the errors found are available online\footnote{\url{https://users.dcc.uchile.cl/~hrosales/dataset_errors.html}; January 1st, 2019.}.
 %---------------------------------------------------------------------------
 \section{Benchmark}
 
@@ -294,7 +433,7 @@ In this paper, we first propose an extension of NIF format, in order to handle t
 
 A variety of tools have been proposed to annotate and validate NIF datasets; and also to support the comparison among EL systems through them but in a separately way. Here we propose also the tool NIFify which gather these three functionalities over both, the current NIF format and our NIF extension. Our tool allows the annotation of text corpora including the specification of overlapped mentions and their entity type. Through the annotation functionality, we transformed MSNBC and ACE2004 datasets from its own format to NIF, and thus, allowing their usage in processes designed for NIF guidelines.
 
-NIFify disposes a validator of a set of rules to identify errors presented on benchmark datasets and an automatic way to solve some of them. We apply our validator to some NIF benchmark datasets of the literature, discovering a total of \textcolor{red}{100000} errors. The errors detected in DBpedia Spotlight were fixed and we release the corrected version of it, available for download. We incorporate also in NIFify a benchmark framework that allows the visualization and measurements of state-of-the-art approaches.
+NIFify disposes a validator of a set of rules to identify errors presented on benchmark datasets and an automatic way to solve some of them. We apply our validator to some NIF benchmark datasets of the literature, discovering a total of 2322 errors. The errors detected in DBpedia Spotlight were fixed and we release the corrected version of it, available for download. We incorporate also in NIFify a benchmark framework that allows the visualization and measurements of state-of-the-art approaches.
 
 
 %Aqui se puede encontrar una lista de datasets en NIF:
@@ -302,14 +441,13 @@ NIFify disposes a validator of a set of rules to identify errors presented on be
 
 
 %----------------------------------------------------------------------------
-{\footnotesize
-\paragraph{Acknowledgements} The work of Henry Rosales-M\'endez was supported by CONICYT-PCHA/Doctorado Nacional/2016-21160017. The work was also supported by the Millennium Institute for Foundational Research on Data (IMFD) and by Fondecyt Grant No.\ 1181896.}
+\section{Acknowledgments}
+
+The work of Henry Rosales-M\'endez was supported by CONICYT-PCHA/Doctorado Nacional/2016-21160017. The work was also supported by the Millennium Institute for Foundational Research on Data (IMFD) and by Fondecyt Grant No.\ 1181896.
 
 %
-% ---- Bibliography ----
-\bibliographystyle{splncs03}
+% The next two lines define the bibliography style to be used, and the bibliography file.
+\bibliographystyle{ACM-Reference-Format}
 \bibliography{bibfile}
 
-
-
-\end{document} 
+\end{document}

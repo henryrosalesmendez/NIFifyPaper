@@ -1,0 +1,106 @@
+This is BibTeX, Version 0.99d (TeX Live 2017/Debian)
+Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
+The top-level auxiliary file: main.aux
+The style file: ACM-Reference-Format.bst
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
+Database file #1: bibfile.bib
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated glb_str_ptr (elt_size=4) to 20 items from 10.
+Reallocated global_strs (elt_size=20001) to 20 items from 10.
+Reallocated glb_str_end (elt_size=4) to 20 items from 10.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Warning--page numbers missing in both pages and numpages fields in calcs2018shtask
+Warning--unusual to have number, but no volume, for renden2016
+Warning--empty publisher in abstracts2016
+Warning--empty address in abstracts2016
+Warning--page numbers missing in both pages and numpages fields in abstracts2016
+Warning--empty publisher in BAT2013
+Warning--empty address in BAT2013
+Warning--page numbers missing in both pages and numpages fields in BAT2013
+Warning--no number and no volume in cucerzan2007large
+Warning--empty publisher in Lexvo2008
+Warning--empty address in Lexvo2008
+Warning--page numbers missing in both pages and numpages fields in Lexvo2008
+Warning--empty publisher in NIFpaper
+Warning--empty address in NIFpaper
+Warning--empty publisher in aida2011
+Warning--empty address in aida2011
+Warning--empty publisher in kore50
+Warning--empty address in kore50
+Warning--empty publisher in Kunal2017
+Warning--empty address in Kunal2017
+Warning--empty publisher in IITB2009
+Warning--empty address in IITB2009
+Warning--empty publisher in mendes2011dbpedia
+Warning--empty address in mendes2011dbpedia
+Warning--no journal in meantime2016
+Warning--no number and no volume in meantime2016
+Warning--page numbers missing in both pages and numpages fields in meantime2016
+Warning--empty publisher in moro2015semeval
+Warning--empty address in moro2015semeval
+Warning--empty publisher in Bengal2018
+Warning--empty address in Bengal2018
+Warning--empty publisher in Orbis2018
+Warning--empty address in Orbis2018
+Warning--empty publisher in aquaint
+Warning--empty address in aquaint
+Warning--empty publisher in N3
+Warning--empty address in N3
+Warning--empty publisher in VoxEL2018
+Warning--empty address in VoxEL2018
+Warning--empty publisher in ourAMW2018
+Warning--empty address in ourAMW2018
+Warning--page numbers missing in both pages and numpages fields in ourAMW2018
+Warning--empty publisher in gerbil-2015
+Warning--empty address in gerbil-2015
+Warning--empty publisher in Marieke2016
+Warning--empty address in Marieke2016
+Warning--page numbers missing in both pages and numpages fields in Marieke2016
+Warning--empty publisher in wes2015
+Warning--empty address in wes2015
+Warning--page numbers missing in both pages and numpages fields in wes2015
+Warning--empty publisher in KEA2016
+Warning--empty address in KEA2016
+You've used 24 entries,
+            5733 wiz_defined-function locations,
+            1427 strings with 18756 characters,
+and the built_in function-call counts, 29324 in all, are:
+= -- 3052
+> -- 1142
+< -- 0
++ -- 379
+- -- 380
+* -- 2101
+:= -- 2985
+add.period$ -- 114
+call.type$ -- 24
+change.case$ -- 178
+chr.to.int$ -- 23
+cite$ -- 76
+duplicate$ -- 2800
+empty$ -- 1943
+format.name$ -- 471
+if$ -- 6876
+int.to.chr$ -- 3
+int.to.str$ -- 1
+missing$ -- 117
+newline$ -- 211
+num.names$ -- 191
+pop$ -- 1249
+preamble$ -- 1
+purify$ -- 392
+quote$ -- 0
+skip$ -- 996
+stack$ -- 0
+substring$ -- 2041
+swap$ -- 262
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 672
+warning$ -- 52
+while$ -- 170
+width$ -- 0
+write$ -- 422
+(There were 52 warnings)
