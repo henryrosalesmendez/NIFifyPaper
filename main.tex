@@ -77,43 +77,44 @@
 
 %
 % The "title" command has an optional parameter, allowing the author to define a "short title" to be used in page headers.
-\title{NIFify: supporting NIF for Entity Linking}
+\title{NIFify: Supporting NIF for Entity Linking}
 
 %
 % The "author" command and its associated commands are used to define the authors and their affiliations.
 % Of note is the shared affiliation of the first two authors, and the "authornote" and "authornotemark" commands
 % used to denote shared contribution to the research.
-\author{Henry Rosales M\'endez}
+\author{Henry Rosales-M\'endez}
 \affiliation{%
-  \institution{University of Chile}
+  \institution{DCC, University of Chile}
 }
 \email{hrosales@dcc.uchile.cl}
 
 \author{Aidan Hogan}
 \affiliation{%
-  \institution{University of Chile}
+  \institution{IMFD; DCC, University of Chile}
 }
 \email{ahogan@dcc.uchile.cl}
 
 
 \author{Barbara Poblete}
 \affiliation{%
-  \institution{University of Chile}
+  \institution{IMFD; DCC, University of Chile}
 }
 \email{bpoblete@dcc.uchile.cl}
+
+
 
 
 %
 % By default, the full list of authors will be used in the page headers. Often, this list is too long, and will overlap
 % other information printed in the page headers. This command allows the author to define a more concise list
 % of authors' names for this purpose.
-\renewcommand{\shortauthors}{Rosales et al.}
+\renewcommand{\shortauthors}{Rosales-M\'endez et al.}
 
 %
 % The abstract is a short summary of the work to be presented in the article.
 \begin{abstract}
-The Entity Linking (EL) task identifies entity mentions in a text corpus and associates them with a corresponding unambiguous entry in a Knowledge Base. So far, the evaluation process of EL systems relies on the comparison of their results against gold standards. Despite that some gold standard has been proposed, they are still insufficient in some specific domains or situations that are commonly presented in real environments. 
-The most recent of them commonly have been created using the NIF format, which is focused on spotting the mentions in a text corpus and annotate them with URIs using RDF triples. In this paper we first propose a minor extension of NIF format in order to cover the entity type, and also we propose the tool NIFify for the creation, visualization and validation of NIF datasets, as well as for our proposed extension of NIF. NIFify also serves as a benchmark tool that allows the assessment of EL systems. Additionally, we explore the quality of some popular NIF gold standards trough NIFify. 
+The Entity Linking (EL) task identifies entity mentions in a text corpus and associates them with a corresponding unambiguous entry in a Knowledge Base. The evaluation of EL systems relies on the comparison of their results against gold standards. A common format used to represent gold standard datasets is the NLP Interchange Format (NIF), which uses RDF as a data model. However, creating gold standard datasets for EL is a time-consuming and error-prone process. In this paper we propose a tool called NIFify to help manually generate, curate, visualise and validate EL annotations; the resulting tool is useful, for example, in the creation of gold standard datasets. NIFify also serves as a benchmark tool that allows the assessment of EL systems. Using the validation features of NIFify, we further explore the quality of popular EL gold standards. 
 \end{abstract}
 
 %
@@ -174,17 +175,16 @@ The most recent of them commonly have been created using the NIF format, which i
 
 %------------------------------------------------------------
 \section{Introduction}
-The Entity Linking (EL) task identifies entity mentions in a text corpus and associates them with a corresponding unambiguous entry in a Knowledge Base (KB). EL task belongs to the Information Extraction (IE) area, and it has gained the attention of the scientific community in the recent years, mainly because the increasing availability of huge KBs that cover a long portion of the whole knowledge (e.g., Wikipedia, DBpedia, Wikidata, BabelNet).
+Entity Linking (EL) involves annotating entity mentions in a text and associating them with a corresponding unambiguous identifier in a Knowledge Base (KB). EL has gained increasing attention in recent years due mainly to the availability of large KBs on the Web (e.g., Wikipedia, DBpedia, Wikidata, BabelNet) that offer unambiguous identifiers and relevant information for a wide range of entities. For instance, in the sentence \textit{``Jackson won an award as best-selling artist of the 1980s"} an EL system targetting the DBpedia KB should identify \textit{Jackson} as \texttt{dbr:Michael\_Jackson}\footnote{Throughout, we use well-known prefixes according to \url{http://prefix.cc}}; in this way, we know that the text speaks about a famous musician from the U.S. who is also known as the \textit{King of Pop}. EL thus helps to build a bridge from unstructured information (text) to (semi-)structured data (KBs).  Many applications then rely on EL, including semantic search, semantic annotation, text enrichment, entity summarisation, relation extraction, and more besides.
 
-EL is directly applicable in Natural Language Processing (NLP), since associating entities with KB build a bridge from unstructured information to structured data, which provide relevant information and relationships about them. For instance, in the sentence \textit{``Jackson won an award as best-selling artist of the 1980s"} an EL systems should identify \textit{Jackson} as \texttt{dbr:Michael\_Jackson}\footnote{Throughout, we use prefixes according to http://prefix.cc}, and in this way, we know that he was the famous musician knows as The King of the Pop. Many related fields can leverage EL benefits such as Semantic search, Semantic annotation, Text enrichment, Entity summarization, and Relation Extraction. 
+Several EL approaches have been proposed so far, along with a range of gold standards for evaluation purposes (surveyed later in Table~\ref{tab:datasets}). However, as research on EL has continued to advance, more specialised requirements are being considered, reflecting real environments that stand to benefit from EL; such requirements include multilingualism, specific domains, noisy texts, short texts, semi-structured inputs, etc. %KEA~\cite{KEA2016}, for instance, is proposed to accurately perform over tweets, that represent a source of short and noisy information. (Aidan: a little specific)
+With this diversification of requirements, traditional gold standards are not enough: novel gold standards are ideally required to reflect different contexts.
 
-Several EL approaches have been proposed so far, addressing each time more specific situations presented in real environments such as multilingualism, specific domains, noisy texts, short texts, semi-structure inputs, etc. KEA~\cite{KEA2016}, for instance, is proposed to accurately perform over tweets, that represent a source of short and noisy information. With this variety of requirements, it is necessary to have tagged data that allows ad-hoc evaluations for each of these contexts, which are known as \textit{gold standards} or \textit{benchmark datasets}. In this lines, the evaluation of EL systems take as input the text information from these datasets and compare their results against the dataset annotations. 
+Gold standard datasets are commonly built manually by expert humans reflecting a ground truth. Early datasets were written in (varying) ad hoc formats that required special processing. Hellmann et al~\cite{NIFpaper} thus proposed the NLP Interchange Format (NIF) in order to improve the interoperability of NLP tools, including EL tools. NIF is based on the RDF data model, defining a vocabulary in OWL that standardises how various NLP-related annotations can be represented and shared. A further benefit of this approach is that it fosters extensibility, where we will later describe minor extensions to represent also the types of entities being linked. %Although its good adoption in recent research, this format does not allow the specification of entity type for all scenarios. Our first proposal in this paper is the enhancing of NIF, covering in that way some scenarios where current mechanisms for the specification of entity types are not suitable.
 
-Commonly, benchmark datasets are built by expert humans achieving in that way a ground truth. So far, these datasets have been written in more than one format that difficult the experimentation process. Hellmann et al., proposed in \cite{NIFpaper} the NLP Interchange Format (NIF) in order to simplify the interoperability of NLP tools that handle annotations in a text corpus. The format NIF is based on RDF/OWL triples, fitting predicates to standardize the access of the information of the annotations. Although its good adoption in recent research, this format does not allow the specification of entity type for all scenarios. Our first proposal in this paper is the enhancing of NIF, covering in that way some scenarios where current mechanisms for the specification of entity types are not suitable.
+Despite the benefits of NIF, the creation of gold standards is still a complex, error-prone and time-consuming work; hence a number of tools have been proposed to help experts in this task. R\"oder el al.~\cite{N3} craft three NIF datasets from texts written in English and German that were tagged manually using their own tool, but to the best of our knowledge the tool is not openly available. Looking for mistakes in datasets, Kunal et al.~\cite{Kunal2017} propose guidelines to validate EL datasets, providing the EAGLET system that checks a variety of quality rules, helping experts to reduce errors; \ah{We should indicate why EAGLET is not enough: why we propose a new tool}. On the other hand, other works have focused on standardizing the assessment process, providing benchmarking suits (e.g., GERBIL~\cite{gerbil-2015}, Orbis~\cite{Orbis2018}) that can quickly compare results for state-of-the-art EL systems against a variety of datasets. However, all of these NIF operations -- creating, validating and performing experiments with EL datasets -- have been addressed as separate systems. In this paper, we propose NIFify: one tool that allows at the same time the creation, visualization, and validation of NIF datasets, as well as the comparison of EL systems. 
 
-Despite the benefits of NIF, the creation of triples is a complex and time-consuming work, usually performed through tools. In~\cite{N3} the authors propose three NIF monolingual datasets, from texts written in English and German that were tagged manually using their own tool that is not published so far. Looking for mistakes in datasets,  Kunal et al.,~\cite{Kunal2017} propose a guideline of steps to validate them, providing the system EAGLET that checks a variety of quality rules. In that way, EAGLET tells us if datasets are reliable and ready to be evolved in the EL assessment. On the other hand, some authors have dedicated a lot of effort to standardize the assessment process providing benchmarking suits (e.g., GERBIL~\cite{gerbil-2015}, Orbis~\cite{Orbis2018}) that dispose of state-of-the-art systems and datasets to settings EL comparison. Benchmark tools constitute a fundamental factor to achieve the reproducibility of experiments, which is crucial in the achievements of its comparability. However, all of these NIF operations were attempted using separated systems. In this paper, we propose NIFify, one tool that allows at the same time the creation, visualization, and validation of NIF datasets, as well as the comparison of EL systems. 
-
-NIFify contains a variety of desirable properties, where some of them were incorporated during the construction of VoxEL~\cite{VoxEL2018}, a dataset that contains the same annotation aligned by each sentence/document for five languages. Additionally, of the NIF specifications, NIFify is built also to handle our NIF extensions. 
+%NIFify contains a variety of desirable properties, where some of them were incorporated during the construction of VoxEL~\cite{VoxEL2018}, a dataset that contains the same annotation aligned by each sentence/document for five languages. Additionally, of the NIF specifications, NIFify is built also to handle our NIF extensions. 
 
 %In follow ...
 
@@ -196,7 +196,7 @@ NIFify contains a variety of desirable properties, where some of them were incor
 
 
 %-------------------------------------------------------------------------------
-\section{Preliminars}
+\section{Background}
 \label{sec:nif}
 
 
