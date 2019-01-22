@@ -175,7 +175,7 @@ The Entity Linking (EL) task identifies entity mentions in a text corpus and ass
 
 %------------------------------------------------------------
 \section{Introduction}
-Entity Linking (EL) involves annotating entity mentions in a text and associating them with a corresponding unambiguous identifier in a Knowledge Base (KB). EL has gained increasing attention in recent years due mainly to the availability of large KBs on the Web (e.g., Wikipedia, DBpedia, Wikidata, BabelNet) that offer unambiguous identifiers and relevant information for a wide range of entities. For instance, in the sentence \textit{``Jackson won an award as best-selling artist of the 1980s"} an EL system targeting the DBpedia KB should identify \textit{Jackson} as \texttt{dbr:Michael\_Jackson}\footnote{Throughout, we use well-known prefixes according to \url{http://prefix.cc}}; in this way, we know that the text speaks about a famous musician from the U.S. who is also known as the \textit{King of Pop}. EL thus helps to build a bridge from unstructured information (text) to (semi-)structured data (KBs).  Many applications then rely on EL, including semantic search, semantic annotation, text enrichment, entity summarization, relation extraction, and more besides.
+Entity Linking (EL) involves annotating entity mentions in a text and associating them with a corresponding unambiguous identifier in a Knowledge Base (KB). EL has gained increasing attention in recent years due mainly to the availability of large KBs on the Web (e.g., Wikipedia, DBpedia, Wikidata, BabelNet) that offer unambiguous identifiers and relevant information for a wide range of entities. For instance, in the sentence \textcolor{red}{S1} \textit{``Jackson won an award as best-selling artist of the 1980s"} an EL system targeting the DBpedia KB should identify \textit{Jackson} as \texttt{dbr:Michael\_Jackson}\footnote{Throughout, we use well-known prefixes according to \url{http://prefix.cc}}; in this way, we know that the text speaks about a famous musician from the U.S. who is also known as the \textit{King of Pop}. EL thus helps to build a bridge from unstructured information (text) to (semi-)structured data (KBs).  Many applications then rely on EL, including semantic search, semantic annotation, text enrichment, entity summarization, relation extraction, and more besides.
 
 Several EL systems have been proposed thus far, along with a range of gold standards for evaluation purposes (surveyed later in Table~\ref{tab:datasets}). However, as research on EL has continued to advance, more specialized requirements are being considered, reflecting real environments that stand to benefit from EL; such requirements include multilingualism, specific domains, noisy texts, short texts, semi-structured inputs, etc. %KEA~\cite{KEA2016}, for instance, is proposed to accurately perform over tweets, that represent a source of short and noisy information. (Aidan: a little specific)
 With this diversification of requirements, traditional gold standards are not enough: novel gold standards are ideally required to reflect different contexts.
@@ -184,7 +184,16 @@ Gold standard datasets are commonly built manually by expert humans reflecting a
 
 Despite the benefits of NIF, the creation of gold standards is still a complex, error-prone and time-consuming work; hence a number of tools have been proposed to help experts in this task. R\"oder el al.~\cite{N3} craft three NIF datasets from texts written in English and German that were tagged manually using their own tool, but to the best of our knowledge the tool is not openly available. Looking for mistakes in datasets, Kunal et al.~\cite{Kunal2017} propose guidelines to validate EL datasets, providing the EAGLET system that checks a variety of quality rules, helping experts to reduce errors; however, some important errors, such as verifying that the target of a link is not a redirect page, are not covered. On the other hand, other works have focused on standardizing the assessment process, providing benchmarking suites (e.g., GERBIL~\cite{gerbil-2015}, Orbis~\cite{Orbis2018}) that can quickly compare results for state-of-the-art EL systems against a variety of datasets. More generally, all of these NIF operations -- creating, validating and performing experiments with EL datasets -- have mostly been addressed as independent systems. 
 
-In this short paper, we thus propose NIFify: a tool that simultaneously supports the creation, visualization, and validation of NIF datasets, as well as the comparison of EL systems. 
+In this short paper, we thus propose NIFify: a tool that simultaneously supports the creation, visualization, and validation of NIF datasets, as well as the comparison of EL systems. \textcolor{red}{With our tool -- shown in Figure 1 -- we include some functionalities not covered by previous approaches such as the modification of document, sentence, and annotations of NIF datasets. Additionally, we allow the evaluation of systems in two different granularity: by sentence and by a document, commonly performed only at a sentence level. } 
+
+%We show in Figure 1 the main view of our tool that  corresponds to the process of annotation and visualization.
+%which .
+
+\begin{figure*}[tb]
+\label{fig:sys}
+\includegraphics[width=1\textwidth]{figs/screenshot}
+\caption{The main view of NIFify. (a) The class-reference input to filter annotation. (b) Document text input. (c) Area of mention identification. (d) Document visualization.}
+\end{figure*}
 
 %NIFify contains a variety of desirable properties, where some of them were incorporated during the construction of VoxEL~\cite{VoxEL2018}, a dataset that contains the same annotation aligned by each sentence/document for five languages. Additionally, of the NIF specifications, NIFify is built also to handle our NIF extensions. 
 
@@ -195,7 +204,6 @@ In this short paper, we thus propose NIFify: a tool that simultaneously supports
 %http://dashboard.nlp2rdf.aksw.org/
 %http://persistence.uni-leipzig.org/nlp2rdf/specification/api.html
 %https://stp.lingfil.uu.se/~nivre/research/MaltXML.html
-
 
 %-------------------------------------------------------------------------------
 \section{Background}
@@ -285,10 +293,22 @@ VoxEL~\cite{VoxEL2018}              &\cmark &\xmark & NIF \\%& RDF/OWL\\
 %}
 \end{table}
 
+
 NIF is based on RDF triples $<$\textit{subject}, \textit{predicate}, \textit{object}$>$ where the \textit{subject} identifies a unit of information, such as a document, sentence, or annotation; and each \textit{predicate---object} pair defines values for their properties. Figure~\ref{fig:nif} provides a brief example of a single entity annotation serialized in the Turtle syntax of RDF (including extensions to NIF discussed later): the properties \texttt{nif:beginIndex} and \texttt{nif:endIndex} indicate the start and end position of the entity mention in a sentence; the targeted KB identifier is specified using the property \texttt{itsrdf:taIdentRef}; and a class reference can be defined with \texttt{itsrdf:taClassRef}. Other NIF properties capture metadata related to other NLP tasks, such as stemming (\texttt{nif:stem}), part-of-speech tagging (\texttt{nif:oliaCategory}, \texttt{nif:lemma}), etc.
 
 
-
+\begin{figure}
+\caption{NIF triples to specify the annotation of Jackson from sentence S1}
+\label{fig:nif}
+\begin{Verbatim}[frame=single]
+<https://example.org/doc1#char=0,7> a nif:String,
+    nif:Context, nif:Phrase, nif:RFC5147String;
+    nif:anchorOf """Jackson"""^^xsd:string ;
+    nif:beginIndex "0"^^xsd:nonNegativeInteger ;
+    nif:endIndex "7"^^xsd:nonNegativeInteger ;
+    itsrdf:taIdentRef </wiki/Michael_Jackson> .
+\end{Verbatim}
+\end{figure}
 
 %Sentence: 
 %Thomas and Mario are strikers playing in Munich.
@@ -307,10 +327,14 @@ NIF is based on RDF triples $<$\textit{subject}, \textit{predicate}, \textit{obj
 
  
 
-%----------------------------------------------------------------------------------
-\section{Extending NIF}
-\label{sec:nifmod}
 
+%\textcolor{red}{We show in Figure 1 the main view of NIFify, where you can make use of creation/modification functionalities. In this tab, you can either, create a new one or upload an existing one for its visualization or modifications. NIFify handle corpora with more than one document, which is a property presented in the majority of current datasets. Our tool disposes a pletora of facilities to change document, sentences and annotations according to our need. Additionally, we have ways to manually identify in the text some entities that may be useful in some contexts, such as pro-forms and numbers.} 
+
+%\textcolor{red}{We employ different color in the visualization to strees specific aspect of the annotations. In the default setting, the annnotation colors say whether the they are overlapped or not, but in addition, the colors can be customized to differentiate the classes to which it belongs.} 
+
+
+
+\begin{comment}
 One benefit of using RDF as a core data model is that NIF can be readily extended with further class and property terms, as needed. For example, for the purposes of the Wes2015 dataset~\cite{wes2015} for Document Retrieval, novel properties and classes (e.g., \texttt{si:Query}, \texttt{si:result}, \texttt{yv:queryId}) were used alongside  NIF. We now describe a minor extension to NIF that we have incorporated into our NIFify system (whose need arose while annotating the VoxEL dataset~\cite{VoxEL2018}).
 
 %In this Section we detail the need for new mechanisms to specify the entity type according to the links and not related to the mentions, handling in this way, annotations that incorporate more than one link.
@@ -327,24 +351,9 @@ Per Table~\ref{tab:datasets}, many EL datasets type annotations according to a l
 In sentence \textbf{S1}, without further context, it remains unclear whether the entity mention ``\textit{Bush}'' refers to the 41st US president George H. W. Bush or to his son; when evaluating EL systems, we may wish to take both possibilities into account. In sentence \textbf{S2}, the entity mention ``\textit{Moscow}'' could be seen as referring to \texttt{wiki:Moscow}, the capital of Russia, or perhaps rather as referring to help from the Government of Russia (\texttt{wiki:Government\_of\_Russia}). While NIF supports specifying multiple identifiers or classes on an annotation, it does not support assigning different classes to different identifiers; while this would not be a problem for \textbf{S1} (both are \textit{Person}s), in \textbf{S2}, one possibility is a \textit{Place} while the other is an \textit{Organization}.
 
 We propose to separate the entity type specification from the annotation scope with a triple \textit{<$s$, enif:entityType, $o$>} for each link in the annotation, where $s$ denotes the KB identifier, not the mention. In Figure~\ref{fig:nif} we show the annotation of Moscow from sentence \textbf{S2} with NIF, followed by two triples that represent our extension. 
+\end{comment}
 
-\begin{figure}
-\caption{NIF triples to specify the annotation of Moscow from sentence S2; the last two triples follow our extension of NIF to specify entity types}
-\label{fig:nif}
-\begin{Verbatim}[frame=single]
-<http://example.org#char=88,94> a nif:String, 
-    nif:Context, nif:Phrase, nif:RFC5147String;
-    nif:anchorOf """Moscow"""^^xsd:string;
-    nif:beginIndex "88"^^xsd:nonNegativeInteger;
-    nif:endIndex "94"^^xsd:nonNegativeInteger;
-    itsrdf:taIdentRef </wiki/Moscow>;
-    itsrdf:taIdentRef </wiki/Government_of_Russia>.  
-    
-</wiki/Moscow> enif:entityType dbo:Place.
-</wiki/Government_of_Russia> enif:entityType 
-    dbo:Organization.
-\end{Verbatim}
-\end{figure}
+
 
 
 %----------------------------------------------------------------------------------
@@ -352,10 +361,10 @@ We propose to separate the entity type specification from the annotation scope w
 
 A number of EL datasets have either been computed from existing sources, or computed automatically. For example, DBpedia Abstracts is too large for human labeling to be feasible.\footnote{Details of the annotation process are not provided, but we assume it uses links already present in the corresponding Wikipedia texts.} On the other hand, the recently proposed BENGAL tool~\cite{Bengal2018} adopts a creative strategy for automatically generating gold standard datasets: rather than start with text, the authors propose to start with facts about entities from structured datasets (in RDF) and use verbalization components to convert these facts to text, recording which entities are used to generate which sentences; while this approach has the benefit of being able to generate very large and accurate gold standards, how representative the generated text is of real-world corpora depends on the quality of the verbalization component.
  
-On the other hand, per Table \ref{tab:datasets}, most datasets are constructed with manual intervention, and a number of systems have been proposed to help in this process. In previous work, we manually annotated a multilingual EL dataset called VoxEL~\cite{VoxEL2018}, generating NIF annotations; at the start of this process, we tried to find an existing tool that would aid in the annotation process, but we found that systems \ah{why could we not use existing tools? what limitations did they have?}
+On the other hand, per Table \ref{tab:datasets}, most datasets are constructed with manual intervention, and a number of systems have been proposed to help in this process. In previous work, we manually annotated a multilingual EL dataset called VoxEL~\cite{VoxEL2018}, generating NIF annotations; at the start of this process, we tried to find an existing tool that would aid in the annotation process, but we found systems \textcolor{red}{(e.g., QRTool\footnote{\url{https://github.com/dice-group/QRTool}; January 1st, 2019}) that we could not install, and others focus only on the creation of annotations, but not on the correction process.} \ah{why could we not use existing tools? what limitations did they have?} \textcolor{red}{.}
 
 
-Addressing these limitations, we propose NIFify: an open source tool that provides end-to-end support for EL annotation, including the import of text corpora\footnote{\url{https://users.dcc.uchile.cl/~hrosales/MSNBC_ACE2004_to_NIF.html}}; the import (including the conversion of MSNBC formats to NIF) of existing EL datasets; the addition and revision of annotations; custom tagging systems for annotations; visualizations of annotations; overlapping mentions; and finally, visualisations of the results of EL systems over the resulting dataset. The tool requires no installation and can be used either online or offline in a browser \ah{links}. For space reasons, rather than describe all the features of NIF, we focus on two group of features that distinguish NIFify from other tools: \textit{validation} and \textit{result visualization}.
+Addressing these limitations, we propose NIFify: an open source tool that provides end-to-end support for EL annotation, including the import of text corpora\footnote{\url{https://users.dcc.uchile.cl/~hrosales/MSNBC_ACE2004_to_NIF.html}; Jan. 1st, 2019}; the import (including the conversion of MSNBC formats to NIF) of existing EL datasets; the addition and revision of annotations; custom tagging systems for annotations; visualizations of annotations; overlapping mentions; and finally, visualisations of the results of EL systems over the resulting dataset. The tool requires no installation and can be used either online or offline in a browser\footnote{\url{https://github.com/henryrosalesmendez/NIFify_v2}; January 1st, 2019} \ah{links} \textcolor{red}{OK}. For space reasons, rather than describe all the features of NIF, we focus on two group of features that distinguish NIFify from other tools: \textit{validation} and \textit{result visualization}.
 
 %permits the annotation, visualization, and validation of NIF datasets in the same environment, as well as the comparison of EL systems. We design NIFify to capture specifications from different perspectives of annotations, allowing partial or total overlapping among them, as well as the cross-links specification. As a consequence of the annotation process, this tool is a suit to visualize and modify already proposed NIF datasets. Additionally, we include in NIFify functionalities to transform MSNBC-based datasets to NIF, used to transform the datasets MSNBC and ACE2004\footnote{\url{https://users.dcc.uchile.cl/~hrosales/MSNBC_ACE2004_to_NIF.html}}. 
 
@@ -420,7 +429,7 @@ DBpedia Spotlight        &8 &23    &4 &--\\ %\midrule
 N3-RSS 500               &1 &34    &-- &--\\ %\midrule
 Reuters 128              &4 &71    &-- &--\\ %\midrule
 News-100                 &9 &1515  &-- &--\\ %\midrule
-Wes2015                  &-- &644   &-- &--\\ \midrule
+Wes2015                  &-- &609   &-- &--\\ \midrule
 VoxEL                    &-- &8  &-- &--\\
 \bottomrule
 \end{tabular}
@@ -434,7 +443,7 @@ The most frequent type of error encountered in the NIF dataset was LE: this is m
 
 Finally, the only dataset we found with FE-type errors was DBpedia Spotlight, which had problems with its NIF representation. On the other hand, we did not find any errors of type CE.
 
-We have published all errors found online for reference.\footnote{\url{https://users.dcc.uchile.cl/~hrosales/dataset_errors.html}; January 1st, 2019.} \ah{Link is dead.} We conclude that most of the validation features of NIFify can help to improve the quality of EL datasets, including to find problems caused by the evolution of a KB over time. 
+We have published all errors found online for reference.\footnote{\url{https://users.dcc.uchile.cl/~hrosales/dataset_errors.html}; January 1st, 2019.} \ah{Link is dead.} \textcolor{red}{OK} We conclude that most of the validation features of NIFify can help to improve the quality of EL datasets, including to find problems caused by the evolution of a KB over time. 
 %---------------------------------------------------------------------------
 
 \section{Result Visualization}
@@ -449,7 +458,7 @@ Given that there is no clear definition on what EL systems should link~\cite{our
 %---------------------------------------------------------------------------
 \section{Conclusion} 
 \label{sec:conclusion}
-In this short paper, we describe the NIFify system, which aims to address a number of shortcomings of existing tools for generating EL datasets and evaluating EL tools: in particular, NIFify simultaneously supports the creation, visualization, and validation of NIF datasets, as well as the comparison of EL systems. We first discussed some extensions to the NIF format to support mentions having multiple possible identifiers annotated with different types. We then provided a summary of the main features of NIFify for generating EL gold standard datasets, before focusing on features relating to validation, showing that existing EL datasets exhibit errors detectable by the tool, detecting a total of 2,321 errors across six datasets. Finally, we discuss the importance of features for visualizing the results produced by an EL system, which are further implemented in the NIFify tool. A demo of the tool is available at \ah{---}. 
+In this short paper, we describe the NIFify system, which aims to address a number of shortcomings of existing tools for generating EL datasets and evaluating EL tools: in particular, NIFify simultaneously supports the creation, visualization, and validation of NIF datasets, as well as the comparison of EL systems. We first discussed some extensions to the NIF format to support mentions having multiple possible identifiers annotated with different types. We then provided a summary of the main features of NIFify for generating EL gold standard datasets, before focusing on features relating to validation, showing that existing EL datasets exhibit errors detectable by the tool, detecting a total of 2,321 errors across six datasets. Finally, we discuss the importance of features for visualizing the results produced by an EL system, which are further implemented in the NIFify tool. A demo of the tool is available at \url{https://users.dcc.uchile.cl/~hrosales/NIFify\_v2.html} \ah{---} \textcolor{red}{OK}. 
 
 %A variety of tools have been proposed to annotate and validate NIF datasets; and also to support the comparison among EL systems through them but in a separately way. Here we propose also the tool NIFify which gather these three functionalities over both, the current NIF format and our NIF extension. Our tool allows the annotation of text corpora including the specification of overlapped mentions and their entity type. Through the annotation functionality, we transformed MSNBC and ACE2004 datasets from its own format to NIF, and thus, allowing their usage in processes designed for NIF guidelines.
 
@@ -459,6 +468,10 @@ In this short paper, we describe the NIFify system, which aims to address a numb
 %Aqui se puede encontrar una lista de datasets en NIF:
 %http://dashboard.nlp2rdf.aksw.org/
 
+\begin{comment}
+{\footnotesize
+\paragraph{Acknowledgements} The work of Henry Rosales-M\'endez was supported by CONICYT-PCHA/Doctorado Nacional/2016-21160017. The work was also supported by the Millennium Institute for Foundational Research on Data (IMFD) and by Fondecyt Grant No.\ 1181896.}
+\end{comment}
 
 %----------------------------------------------------------------------------
 \section{Acknowledgments}
